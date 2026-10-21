@@ -12,6 +12,11 @@ allowBuilds:
   mongodb-memory-server: true
 minimumReleaseAgeExclude:
   - prettier@3.9.7
+# 安全修复：uuid 由 @twikoojs/common 里的腾讯云内容审核 SDK 间接引入，
+# 原本解析到 9.0.1，存在 <11.1.1 的中危问题；SDK 自身已是最新且对 uuid
+# 用的是宽范围，所以用 override 抬到 11.x 的修复版。
+overrides:
+  uuid: 11.1.1
 # 说明：曾为钉住 `@xsai/shared-chat`（当时 generate-text@0.2.2 把该依赖写成空范围 ""，
 # 解析到新的 0.5.0 后会缺 determineStepType 而崩溃）。generate-text 升到 0.5.0 后其依赖已写明
 # `"@xsai/shared-chat": "0.5.0"`，上游问题消失，故移除该 override，交回其自身版本约束。
